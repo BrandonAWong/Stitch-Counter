@@ -4,7 +4,7 @@ function getIntRange(msg, min, max) {
         return count;
     }
     else if (count) {
-        alert('Invalid input. Must be number between 0-99.');
+        alert(`Invalid input. Must be number between ${min}-${max}.`);
     }
 }
 
