@@ -107,6 +107,7 @@ window.onload = () => {
     document.querySelector('.reset').addEventListener('click', () => {
         if (window.confirm('Reset stitch count back to 0?')) {
             document.querySelector('.stitchCounter').textContent = 0;
+            setInfo(sets, reps);
         }
     });
 }
