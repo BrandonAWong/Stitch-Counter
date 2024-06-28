@@ -1,0 +1,48 @@
+body {
+    color: white;
+    background-color: black;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.counter {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.minus,
+.add,
+.stitchCounter {
+    font-size: 32px;
+}
+
+.minus,
+.add {
+    height: 35px;
+    color: white;
+    background-color: transparent;
+    border: none;
+    border-radius: 15px;
+}
+
+.minus:hover,
+.add:hover {
+    cursor: pointer;
+}
+
+.stitchCounter {
+    margin: 0 15% 0 15%;
+    padding: 0 15% 0 15%;
+    width: 32px;
+    border-radius: 15px;
+    background-color: cadetblue;
+}
+
+.actions {
+    margin: 2.5% 0 0 0;
+}
