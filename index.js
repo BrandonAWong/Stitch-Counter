@@ -68,8 +68,6 @@ window.onload = () => {
         localStorage.setItem('reps', 1);
     }
     else {
-        sets = localStorage.getItem('sets');
-        reps = localStorage.getItem('reps');
         document.querySelector('.totalSets').textContent = `Total Sets: ${getSets()}`;
         setInfo(getSets(), getReps());
     }
@@ -106,9 +104,9 @@ window.onload = () => {
             return; 
         }
 
-        document.querySelector('.totalSets').textContent = `Total Sets: ${getSets()}`;
         localStorage.setItem('sets', sets);
-        localStorage.setItem('rep', reps);
+        localStorage.setItem('reps', reps);
+        document.querySelector('.totalSets').textContent = `Total Sets: ${getSets()}`;
         setInfo(getSets(), getReps());
     });
 
