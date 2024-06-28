@@ -8,35 +8,35 @@ function getIntRange(msg, min, max) {
     }
 }
 
-function setInfo(sets, repsPerSet) {
-    if (sets <= 0) {
-        return;
-    }
+function setInfo() {
     document.querySelector('.stitchCounter').textContent = getStitches();
-    setStitchesLeftForSet(repsPerSet);
-    setCurrentSet(repsPerSet);
-    setFinishedSets(repsPerSet);
-    setSetsLeft(sets, repsPerSet);
+    setStitchesLeftForSet();
+    setCurrentSet();
+    setFinishedSets();
+    setSetsLeft();
+    if (getStitches() == getReps() * getSets()) {
+        alert('Round finished!!')
+    }
 }
 
-function setStitchesLeftForSet(repsPerSet) {
+function setStitchesLeftForSet() {
     const stitches = getStitches();
-    document.querySelector('.repsLeft').textContent = `Reps Left For Set: ${repsPerSet - (stitches % repsPerSet)}`;
+    document.querySelector('.repsLeft').textContent = `Reps Left For Set: ${getReps() - (stitches % getReps())}`;
 }
 
-function setCurrentSet(repsPerSet) {
+function setCurrentSet() {
     const stitches = getStitches();
-    document.querySelector('.currentSet').textContent = `Working On Set: ${Math.floor(stitches / repsPerSet) + 1}`;
+    document.querySelector('.currentSet').textContent = `Working On Set: ${Math.floor(stitches / getReps()) + 1}`;
 }
 
-function setFinishedSets(repsPerSet) {
+function setFinishedSets() {
     const stitches = getStitches();
-    document.querySelector('.setsFinished').textContent = `Sets Finished: ${Math.floor(stitches / repsPerSet)}`;
+    document.querySelector('.setsFinished').textContent = `Sets Finished: ${Math.floor(stitches / getReps())}`;
 }
 
-function setSetsLeft(sets, repsPerSet) {
+function setSetsLeft() {
     const stitches = getStitches();
-    document.querySelector('.setsLeft').textContent = `Sets Left: ${sets - Math.floor(stitches / repsPerSet)}`;
+    document.querySelector('.setsLeft').textContent = `Sets Left: ${getSets() - Math.floor(stitches / getReps())}`;
 }
 
 function getStitches() { return localStorage.getItem('stitches'); }
@@ -69,7 +69,7 @@ window.onload = () => {
     }
     else {
         document.querySelector('.totalSets').textContent = `Total Sets: ${getSets()}`;
-        setInfo(getSets(), getReps());
+        setInfo();
     }
 
     document.querySelector('body').addEventListener('keyup', (e) => {
@@ -78,20 +78,20 @@ window.onload = () => {
         }
         if (e.key === ' ') {
             add();
-            setInfo(getSets(), getReps());
+            setInfo();
         }
     });
 
     document.querySelector('.add').addEventListener('click', (e) => {
         add();
         e.target.blur();
-        setInfo(getSets(), getReps());
+        setInfo();
     });
 
     document.querySelector('.minus').addEventListener('click', (e) => {
         minus();
         e.target.blur()
-        setInfo(getSets(), getReps());
+        setInfo();
     });
 
     document.querySelector('.setSets').addEventListener('click', () => {
@@ -99,7 +99,7 @@ window.onload = () => {
         if (!sets) { 
             return; 
         }
-        const reps = getIntRange('Enter how many reps per set', 0, 99);
+        const reps = getIntRange('Enter how many reps per set', 1, 99);
         if (!reps) { 
             return; 
         }
@@ -107,7 +107,7 @@ window.onload = () => {
         localStorage.setItem('sets', sets);
         localStorage.setItem('reps', reps);
         document.querySelector('.totalSets').textContent = `Total Sets: ${getSets()}`;
-        setInfo(getSets(), getReps());
+        setInfo();
     });
 
     document.querySelector('.setCount').addEventListener('click', () => {
@@ -115,7 +115,7 @@ window.onload = () => {
         if (count) {
             document.querySelector('.stitchCounter').textContent = count;
             localStorage.setItem('stitches', count);
-            setInfo(getSets(), getReps());
+            setInfo();
         }
     });
 
@@ -123,7 +123,7 @@ window.onload = () => {
         if (window.confirm('Reset stitch count back to 0?')) {
             document.querySelector('.stitchCounter').textContent = 0;
             localStorage.setItem('stitches', 0);
-            setInfo(getSets(), getReps());
+            setInfo();
         }
     });
 }
