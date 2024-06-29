@@ -84,3 +84,14 @@ body {
     cursor: pointer;
     opacity: 0.8;
 }
+
+.notes {
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    border-radius: 10px;
+    margin-top: 3%;
+    width: 70vw;
+    height: 15rem;
+    padding: 1%;
+}

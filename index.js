@@ -14,6 +14,7 @@ function setInfo() {
     setCurrentSet();
     setFinishedSets();
     setSetsLeft();
+    document.querySelector('.totalSets').textContent = `Total Sets: ${getSets()}`;
     if (getStitches() > 0 && getStitches() == getReps() * getSets()) {
         alert('Round finished!!')
     }
@@ -45,6 +46,21 @@ function getSets() { return localStorage.getItem('sets'); }
 
 function getReps() { return localStorage.getItem('reps'); }
 
+function logKeyStrikes(e) {
+    if (e.key === 'F5') {
+        return;
+    }
+    if (e.key === ' ' || e.key === '=') {
+        add();
+   }
+    if (e.key === '-') {
+        minus();
+    }
+    setInfo();
+}
+
+const keyUpHandler = (e) => logKeyStrikes(e);
+
 function add() {
     const counterBox = document.querySelector('.stitchCounter');
     if (counterBox.textContent >= 99) {
@@ -66,24 +82,15 @@ window.onload = () => {
         localStorage.setItem('stitches', 0);
         localStorage.setItem('sets', 0);
         localStorage.setItem('reps', 1);
+        localStorage.setItem('notes', '');
     }
     else {
         document.querySelector('.totalSets').textContent = `Total Sets: ${getSets()}`;
-        setInfo();
+        document.querySelector('.notes').value = localStorage.getItem('notes');
     }
 
-    document.querySelector('body').addEventListener('keyup', (e) => {
-        if (e.key === 'F5') {
-            return;
-        }
-        if (e.key === ' ' || e.key === '=') {
-            add();
-       }
-        if (e.key === '-') {
-            minus();
-        }
-        setInfo();
-    });
+    setInfo();
+    document.querySelector('body').addEventListener('keyup', keyUpHandler);
 
     document.querySelector('.add').addEventListener('click', (e) => {
         add();
@@ -109,7 +116,6 @@ window.onload = () => {
 
         localStorage.setItem('sets', sets);
         localStorage.setItem('reps', reps);
-        document.querySelector('.totalSets').textContent = `Total Sets: ${getSets()}`;
         setInfo();
     });
 
@@ -128,5 +134,17 @@ window.onload = () => {
             localStorage.setItem('stitches', 0);
             setInfo();
         }
+    });
+    
+    const notes = document.querySelector('.notes');
+    notes.addEventListener('focus', () => {
+        document.querySelector('body').removeEventListener('keyup', keyUpHandler);
+    });
+    notes.addEventListener('focusout', () => {
+        document.querySelector('body').addEventListener('keyup', keyUpHandler);
+        localStorage.setItem('notes', notes.value);
+    });
+    notes.addEventListener('keydown', () => {
+        localStorage.setItem('notes', notes.value);
     });
 }
