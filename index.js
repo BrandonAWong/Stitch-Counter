@@ -14,7 +14,7 @@ function setInfo() {
     setCurrentSet();
     setFinishedSets();
     setSetsLeft();
-    if (getStitches() == getReps() * getSets()) {
+    if (getStitches() > 0 && getStitches() == getReps() * getSets()) {
         alert('Round finished!!')
     }
 }
@@ -76,10 +76,13 @@ window.onload = () => {
         if (e.key === 'F5') {
             return;
         }
-        if (e.key === ' ') {
+        if (e.key === ' ' || e.key === '=') {
             add();
-            setInfo();
+       }
+        if (e.key === '-') {
+            minus();
         }
+        setInfo();
     });
 
     document.querySelector('.add').addEventListener('click', (e) => {
