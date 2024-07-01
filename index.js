@@ -92,15 +92,17 @@ window.onload = () => {
     setInfo();
     document.querySelector('body').addEventListener('keyup', keyUpHandler);
 
+    document.querySelectorAll('button').forEach((button) => {
+        button.addEventListener('click', (e) => e.target.blur())
+    });
+
     document.querySelector('.add').addEventListener('click', (e) => {
         add();
-        e.target.blur();
         setInfo();
     });
 
     document.querySelector('.minus').addEventListener('click', (e) => {
         minus();
-        e.target.blur()
         setInfo();
     });
 

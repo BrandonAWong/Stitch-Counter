@@ -75,6 +75,7 @@ body {
 
 .actions > button {
     border: none;
+    border-radius:10px;
     background-color: burlywood;
     margin: 0 1% 0 1%;
     transition: opacity 0.5s;
